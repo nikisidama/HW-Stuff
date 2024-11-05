@@ -1,9 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react";
-
+import localFont from "next/font/local";
 import Image from "next/image";
 import Link from "next/link";
+
 import Main from "@/components/Main";
 import Audio from "@/components/audio";
 
@@ -13,6 +14,13 @@ const roboto = Roboto({ weight: '900', subsets: ['latin'] })
 const arimo = Arimo({ weight: '700', subsets: ['latin'] })
 const bebasNeue = Bebas_Neue({ weight: '400', subsets: ['latin'] })
 const shadowsIntoLightTwo = Shadows_Into_Light_Two({ weight: '400', subsets: ['latin'] })
+
+const monoCraft = localFont({
+  src: "../fonts/Monocraft.ttf",
+  variable: "--font-monocraft-mono",
+  weight: "100 900",
+});
+
 
 type Theme = {
   audio: string[]
@@ -42,12 +50,18 @@ const themes = {
     font: bebasNeue.className,
     image: ["https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Skibidi_toilet_screenshot.webp/237px-Skibidi_toilet_screenshot.webp.png"]
   },
-  zigma: {
+  wolf: {
     audio: ["./asset/audio/auuuulobosolitario.mp3", "./asset/audio/MareuxThePerfectGirlRemix.mp3"],
     background: ["https://i.kym-cdn.com/photos/images/original/002/410/583/050.jpg", "https://i.kym-cdn.com/photos/images/original/002/410/683/01d.jpg", "https://i.kym-cdn.com/photos/images/original/002/410/685/b39.jpg"],
     color: "text-white",
     font: shadowsIntoLightTwo.className,
     image: ["https://static-00.iconduck.com/assets.00/wolf-face-emoji-512x502-j1xiz5kk.png"]
+  },
+  miner: {
+    audio: [],
+    background: ["https://gamehall.com.br/wp-content/uploads/2020/07/minecraft-mundo-tela-titulo.jpg"],
+    font: monoCraft.className,
+    image: ["https://tr.rbxcdn.com/d57b1e4c21ac21b4e293ac8575cadef3/420/420/Hat/Png"]
   }
   // "https://www.myinstants.com/media/sounds/giga-chad-theme.mp3"
 }
@@ -59,7 +73,15 @@ function getRandomItem<T>(arr: T[]) {
 const links = {
   Home: { href: '/', isNew: false },
   "Current homework": { href: '/homework/apione', isNew: true },
-  "Final Project": { href: '/example/final', isNew: true },
+  "Final Project": { href: '/example/finallol', isNew: true },
+  "Pre Final": { href: '/example/prefinal', isNew: true },
+  "Homework 6": { href: '/homework/furniture', isNew: false }, 
+  "Homework 8": { href: '/homework/musicshop', isNew: false }, 
+  "Example - Form stats": { href: '/example/formstat', isNew: false }, 
+  "Example - Server form": { href: '/example/serverform', isNew: false }, 
+  "Example - To Do List": { href: '/example/todo', isNew: false }, 
+  "Example - DB": { href: '/example/dbex', isNew: false }, 
+  "Example - Pre-Final": { href: '/example/prefinal', isNew: false }, 
   "Ajarn Github": { href: 'https://github.com/wwarodom/web_programming', isNew: false },
   "My Github": { href: 'https://github.com/nikisidama/WebProgramingNextJs', isNew: false },
   "Other coming soon": { href: '/', isNew: false },
@@ -148,7 +170,7 @@ export default function Home() {
 
           {orbits.map((_, index) => (
             linkArray[index] && (
-              <a
+              <Link
                 key={index}
                 className={`z-20 absolute animate-orbit flex text-2xl ${c} ${f}`}
                 href={linkArray[index].href}
@@ -159,7 +181,7 @@ export default function Home() {
                 <span className={`${linkArray[index].isNew ? "animate-rainbow" : ''} hover:opacity-50`}>
                   {Object.keys(links)[index]}
                 </span>
-              </a>
+              </Link>
             )
           ))}
         </div>

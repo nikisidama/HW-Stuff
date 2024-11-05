@@ -17,6 +17,10 @@ const config: Config = {
         outline: "0 0 2px black, 0 0 3px black, 0 0 5px black",
       },
       keyframes: {
+        fadeIn: {
+          "0%": { opacity: '0' },
+          "100%": { opacity: '1' },
+        },
         fadeOut: {
           "0%": { opacity: '1' },
           "100%": { opacity: '0' },
@@ -60,6 +64,7 @@ const config: Config = {
         },
       },
       animation: {
+        fadeIn: "fadeIn 3s linear forwards",
         fadeOut: "fadeOut 3s linear forwards",
         squish: "squish 1.3s cubic-bezier(0.55, 0.055, 0.675, 1) infinite",
         orbit: "orbit 25s linear infinite",

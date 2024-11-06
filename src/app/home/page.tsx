@@ -77,6 +77,7 @@ const links = {
   "Pre Final": { href: '/example/prefinal', isNew: true },
   "Homework 6": { href: '/homework/furniture', isNew: false }, 
   "Homework 8": { href: '/homework/musicshop', isNew: false }, 
+  "Homework 9": { href: '/homework/apione', isNew: false }, 
   "Example - Form stats": { href: '/example/formstat', isNew: false }, 
   "Example - Server form": { href: '/example/serverform', isNew: false }, 
   "Example - To Do List": { href: '/example/todo', isNew: false }, 

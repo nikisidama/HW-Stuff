@@ -72,12 +72,13 @@ function getRandomItem<T>(arr: T[]) {
 
 const links = {
   Home: { href: '/', isNew: false },
-  "Current homework": { href: '/homework/apione', isNew: true },
+  "Current homework": { href: '/homework/guitarshop', isNew: true },
   "Final Project": { href: '/example/finallol', isNew: true },
-  "Pre Final": { href: '/example/prefinal', isNew: true },
+  "Pre Final": { href: '/example/prefinal', isNew: false },
   "Homework 6": { href: '/homework/furniture', isNew: false }, 
   "Homework 8": { href: '/homework/musicshop', isNew: false }, 
   "Homework 9": { href: '/homework/apione', isNew: false }, 
+  "Homework 10": { href: '/homework/guitarshop', isNew: true }, 
   "Example - Form stats": { href: '/example/formstat', isNew: false }, 
   "Example - Server form": { href: '/example/serverform', isNew: false }, 
   "Example - To Do List": { href: '/example/todo', isNew: false }, 

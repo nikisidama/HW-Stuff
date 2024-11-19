@@ -1,5 +1,13 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/../util/db'
+import { z } from 'zod'
+
+const guitarSchema = z.object({
+    id: z.string().optional(),
+    name: z.string().min(1, "Name is required"),
+    brand: z.string().min(1, "Brand is required"),
+    price: z.number().min(0, "Price must be non-negative")
+})
 
 export async function GET() {
     const guitars = await prisma.guitar.findMany();
@@ -7,13 +15,26 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    const formData = await request.formData()
-    const id = formData.get("id") as string || crypto.randomUUID()
-    const name = formData.get("name") as string || "NAME"
-    const brand = formData.get("brand") as string || "BRAND"
-    const price = parseInt(formData.get("price") as string || "0")
-    await prisma.guitar.create({ data: { id, name, brand, price } })
-    return NextResponse.json({ message: "Item added successfully" })
+    try {
+        const formData = await request.formData()
+        const guitarData = {
+            id: formData.get("id") as string || crypto.randomUUID(),
+            name: formData.get("name") as string,
+            brand: formData.get("brand") as string,
+            price: Number(formData.get("price"))
+        }
+
+        // Validate the data
+        const validatedData = guitarSchema.parse(guitarData)
+
+        await prisma.guitar.create({ data: validatedData })
+        return NextResponse.json({ message: "Item added successfully" })
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({ message: error.errors }, { status: 400 })
+        }
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 })
+    }
 }
 
 export async function DELETE(request: Request) {
@@ -29,26 +50,34 @@ export async function DELETE(request: Request) {
 }
 
 export async function PUT(request: Request) {
-    const { searchParams } = new URL(request.url)
-    const id = searchParams.get('id')
+    try {
+        const { searchParams } = new URL(request.url)
+        const id = searchParams.get('id')
 
-    if (!id) {
-        return NextResponse.json({ message: "ID is required" }, { status: 400 })
-    }
-
-    const formData = await request.formData()
-    const name = formData.get('name') as string
-    const brand = formData.get('brand') as string
-    const price = Number(formData.get('price'))
-
-    const updatedGuitar = await prisma.guitar.update({
-        where: { id },
-        data: {
-            name,
-            brand,
-            price
+        if (!id) {
+            return NextResponse.json({ message: "ID is required" }, { status: 400 })
         }
-    })
 
-    return NextResponse.json(updatedGuitar)
+        const formData = await request.formData()
+        const guitarData = {
+            name: formData.get('name') as string,
+            brand: formData.get('brand') as string,
+            price: Number(formData.get('price'))
+        }
+
+        // Validate the update data
+        const validatedData = guitarSchema.omit({ id: true }).parse(guitarData)
+
+        const updatedGuitar = await prisma.guitar.update({
+            where: { id },
+            data: validatedData
+        })
+
+        return NextResponse.json(updatedGuitar)
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            return NextResponse.json({ message: error.errors }, { status: 400 })
+        }
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 })
+    }
 }

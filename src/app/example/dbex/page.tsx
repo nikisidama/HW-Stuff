@@ -9,11 +9,11 @@ export default async function Todo() {
     // await prisma.todo.create({ data: { title, done: false } })
 
     // Read
-    const firstRow = await prisma.todo.findFirst()
-    console.log("data: ", firstRow)
+    // const firstRow = await prisma.todo.findFirst()
+    // console.log("data: ", firstRow)
 
-    const all = await prisma.todo.findMany()
-    console.log("data: ", all)
+    // const all = await prisma.todo.findMany()
+    // console.log("data: ", all)
 
     // Update
     // await prisma.todo.update({ where: { id: data.id }, data: { title:"New title", done: true } })
@@ -28,7 +28,7 @@ export default async function Todo() {
         "use server"
         console.log("Input: ", formData.get("title"))
         const title = formData.get("title") as string
-        await prisma.todo.create({ data: { title, done: true } })
+        await prisma.todo.create({ data: { title, done: false } })
         revalidatePath("/example/dbex")
     }
 
@@ -45,22 +45,29 @@ export default async function Todo() {
         revalidatePath("/example/dbex")
     }
 
+    async function editTask(id: string, title: string) {
+        "use server"
+        await prisma.todo.update({ where: { id }, data: { title } })
+        revalidatePath("/example/dbex")
+    }
+
     return (
         <main className='flex flex-col justify-center items-center w-screen h-screen bg-white text-black'>
             <h1>Simple DB</h1>
 
-            <div>
+            <div className='flex flex-col w-1/2 h-1/2 border-black border-2 overflow-y-scroll'>
                 {data.map((item, index) => (
                     <TodoItem key={index}
                         index={index} id={item.id} title={item.title} done={item.done}
                         deleteTask={deleteTask}
                         toggleTask={toggleTask}
+                        editTask={editTask}
                     />
                 ))
                 }
             </div>
 
-            <div>
+            <div className="m-4">
                 <form action={addTask}>
                     <input
                         className='border-2 border-black'
@@ -69,10 +76,10 @@ export default async function Todo() {
                 </form>
             </div>
 
-            <div className='flex flex-col gap-4 w-1/2 h-1/2 border-black border-2'>
-                {all.map((data) => <div className={`text-xl ${data.done ? "text-green-500" : "text-red-500"}`} key={data.id}>{data.title} | {JSON.stringify(data.createdAt)} | {JSON.stringify(data.updatedAt)} </div>)}
+            <div className='flex-col gap-4 w-1/2 h-1/2 border-black border-2 overflow-y-auto hidden'>
+                {data.map((data) => <div className={`text-xl ${data.done ? "text-green-500" : "text-red-500"}`} key={data.id}>{data.title} | {JSON.stringify(data.createdAt)} | {JSON.stringify(data.updatedAt)} </div>)}
             </div>
-            <div>{JSON.stringify(firstRow)}</div>
+            {/* <div className="hidden">{JSON.stringify(firstRow)}</div> */}
         </main>
     );
 }

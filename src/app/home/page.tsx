@@ -8,13 +8,13 @@ import Link from "next/link";
 import Main from "@/components/Main";
 import Audio from "@/components/audio";
 
-import { Arimo, Roboto, Montserrat, Bebas_Neue, Shadows_Into_Light_Two } from "next/font/google";
+import { Arimo, Roboto, Montserrat, Bebas_Neue, Shadows_Into_Light_Two, Comic_Neue } from "next/font/google";
 
 const roboto = Roboto({ weight: '900', subsets: ['latin'] })
 const arimo = Arimo({ weight: '700', subsets: ['latin'] })
 const bebasNeue = Bebas_Neue({ weight: '400', subsets: ['latin'] })
 const shadowsIntoLightTwo = Shadows_Into_Light_Two({ weight: '400', subsets: ['latin'] })
-
+const comicNeue = Comic_Neue({ weight: '400', subsets: ['latin'] })
 const monoCraft = localFont({
   src: "../fonts/Monocraft.ttf",
   variable: "--font-monocraft-mono",
@@ -62,6 +62,18 @@ const themes = {
     background: ["https://gamehall.com.br/wp-content/uploads/2020/07/minecraft-mundo-tela-titulo.jpg"],
     font: monoCraft.className,
     image: ["https://tr.rbxcdn.com/d57b1e4c21ac21b4e293ac8575cadef3/420/420/Hat/Png"]
+  },
+  cat: {
+    audio: [],
+    background: ["https://uploads.dailydot.com/2018/10/olli-the-polite-cat.jpg?auto=compress&fm=pjpg", "https://uploads.dailydot.com/2024/07/side-eye-cat.jpg?q=65&auto=format&w=1600&ar=2:1&fit=crop", "https://uploads.dailydot.com/2024/06/crying-cat-thumb.jpg?auto=compress&fm=pjpg", "https://imgflip.com/s/meme/Scared-Cat.jpg"],
+    font: comicNeue.className,
+    image: ["https://www.gstatic.com/android/keyboard/emojikitchen/20211115/u1fab5/u1fab5_u1f431.png", "https://www.gstatic.com/android/keyboard/emojikitchen/20201001/u1f431/u1f431_u1f422.png", "https://www.gstatic.com/android/keyboard/emojikitchen/20230301/u1f602/u1f602_u1f431.png", "https://www.gstatic.com/android/keyboard/emojikitchen/20240610/u1f62d/u1f62d_u1f431.png"]
+  },
+  dog: {
+    audio: [],
+    background: ["https://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg"],
+    font: comicNeue.className,
+    image: ["https://www.gstatic.com/android/keyboard/emojikitchen/20211115/u1f436/u1f436_u1f62d.png", "https://www.gstatic.com/android/keyboard/emojikitchen/20211115/u1f436/u1f436_u1f602.png", "https://www.gstatic.com/android/keyboard/emojikitchen/20211115/u1f436/u1f436_u1f422.png"]
   }
   // "https://www.myinstants.com/media/sounds/giga-chad-theme.mp3"
 }

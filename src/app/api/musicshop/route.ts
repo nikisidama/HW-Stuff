@@ -59,10 +59,18 @@ export async function PUT(request: Request) {
         }
 
         const formData = await request.formData()
+        const rawPrice = formData.get('price')
+        const price = Number(rawPrice)
+        
+        // Check if price is valid number
+        if (isNaN(price)) {
+            return NextResponse.json({ message: "Invalid price format" }, { status: 400 })
+        }
+
         const guitarData = {
             name: formData.get('name') as string,
             brand: formData.get('brand') as string,
-            price: Number(formData.get('price'))
+            price: price
         }
 
         // Validate the update data

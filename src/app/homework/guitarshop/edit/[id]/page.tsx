@@ -107,6 +107,7 @@ export default async function page({ params }: { params: { id: string } }) {
                             type="text" 
                             name="name" 
                             id="name" 
+                            min={1}
                             defaultValue={guitar.name}
                             autoComplete='off' 
                             className='border-2 border-gray-500 rounded-md px-2' 
@@ -116,6 +117,7 @@ export default async function page({ params }: { params: { id: string } }) {
                             type="text" 
                             name="brand" 
                             id="brand" 
+                            min={1}
                             defaultValue={guitar.brand}
                             autoComplete='off' 
                             className='border-2 border-gray-500 rounded-md px-2' 
@@ -126,6 +128,7 @@ export default async function page({ params }: { params: { id: string } }) {
                             name="price" 
                             id="price" 
                             defaultValue={guitar.price}
+                            min={0}
                             autoComplete='off' 
                             className='border-2 border-gray-500 rounded-md px-2' 
                         />

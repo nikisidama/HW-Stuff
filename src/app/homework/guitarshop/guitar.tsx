@@ -92,17 +92,20 @@ export default function Guitar({ id, name, brand, price, deleteItem, editItem }:
                     <input
                         name="name"
                         defaultValue={name}
+                        min={1}
                         className="border-2 border-red-400 rounded-md px-2"
                     />
                     <input
                         name="brand"
                         defaultValue={brand}
+                        min={1}
                         className="border-2 border-blue-400 rounded-md px-2"
                     />
                     <input
                         name="price"
                         type="number"
                         defaultValue={price}
+                        min={0}
                         className="border-2 border-green-400 rounded-md px-2"
                     />
                     <span className="flex gap-1 border-2 border-gray-500 bg-white rounded-md px-2">
